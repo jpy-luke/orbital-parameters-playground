@@ -26,20 +26,25 @@ const sceneObject = {
 
     const adalia = MeshBuilder.CreateSphere("adalia", {}, scene);
     const materialAdalia = new StandardMaterial("adalia-material", scene);
-    materialAdalia.ambientColor = Color3.White();
-    adalia.scaling = new Vector3(0.5, 0.5, 0.5)
+    materialAdalia.diffuseColor = Color3.Blue();
+    materialAdalia.specularColor = Color3.Blue();
+    adalia.scaling = new Vector3(0.4, 0.4, 0.4)
+    adalia.material = materialAdalia
 
     const asteroid = MeshBuilder.CreateSphere("asteroid", {}, scene);
     const materialRed = new StandardMaterial("asteriod-material", scene);
     materialRed.diffuseColor = Color3.Red();
+    materialRed.specularColor = Color3.Red();
     asteroid.material = materialRed;
-    asteroid.scaling = new Vector3(0.1, 0.1, 0.1)
+    asteroid.scaling = new Vector3(0.2, 0.2, 0.2)
 
     const plane = MeshBuilder.CreatePlane("reference-plane", {size: 20}, scene);
-    const planeMaterial = new StandardMaterial("plane-glass", scene);
-    planeMaterial.diffuseColor = Color3.Gray();
-    planeMaterial.alpha = 0.2;
-    plane.material = planeMaterial;
+    const materialPlane = new StandardMaterial("plane-glass", scene);
+    materialPlane.diffuseColor = Color3.Gray();
+    materialPlane.specularColor = Color3.Gray();
+    materialPlane.alpha = 0.2;
+    plane.material = materialPlane;
+    plane.position.z = 2
 
     engine.runRenderLoop(() => {
       scene.render();
