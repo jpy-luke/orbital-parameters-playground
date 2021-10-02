@@ -43,7 +43,9 @@ const createScene = (canvas: HTMLCanvasElement, fpsCallback: Function) => {
     if (fpsCallback) {
       fpsCallback(engine.getFps().toFixed());
     }
+
   });
+  return {engine, scene};
 };
 
 export {createScene};

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <label>{{ fps }}</label>
-    <render-canvas @fps="fpsReceived" style="width: 100%; height: 600px;"/>
+    <label>emitted fps {{ callbackFps }}</label><br/>
+    <label>polled fps {{ polledFps }}</label>
+    <render-canvas @callbackFps="callbackFpsReceived" @polledFps="polledFpsReceived"
+                   style="width: 100%; height: 600px;"/>
   </div>
 </template>
 
@@ -16,12 +18,16 @@ export default Vue.extend({
   },
   data() {
     return {
-      fps: 0
+      callbackFps: 0,
+      polledFps: 0
     };
   },
   methods: {
-    fpsReceived(fps) {
-      this.fps = fps;
+    callbackFpsReceived(fps) {
+      this.callbackFps = fps;
+    },
+    polledFpsReceived(fps) {
+      this.polledFps = fps;
     }
   }
 });
