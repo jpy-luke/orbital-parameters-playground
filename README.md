@@ -2,7 +2,6 @@
 
 This app is inspired by upcoming the [Influence](https://influenceth.io) game, which plays heavily around orbital mechanics.
 It will allow for experimenting with orbital parameters and visualizing their effect on the orbital shape on the go.
-At the time of writing this, it is a simple prototype demonstrating core library usage.
 
 Run by ´npm install´ and ´npm run dev´.
 
