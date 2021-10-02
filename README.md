@@ -6,5 +6,7 @@ At the time of writing this, it is a simple prototype demonstrating core library
 
 Run by ´npm install´ and ´npm run dev´.
 
+Can be demoed [here](https://red-sand-07cb3eb03.azurestaticapps.net) but no guarantees of permanent availability.
+
 Initialized as a [Nuxt.js](https://nuxtjs.org/) application using [Vue 2](https://vuejs.org/). 
 Using [Babylon.js](https://www.babylonjs.com) as the WebGL engine and [influence-utils](https://github.com/Influenceth/influence-utils) to compute orbital positions.
