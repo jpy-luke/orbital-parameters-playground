@@ -5,26 +5,34 @@
 </template>
 
 <script>
-import {createScene} from "../scenes/MainScene";
+import sceneObject from "../scenes/MainScene";
 
 export default {
   name: "RenderCanvas",
 
+  props: {
+    position: {
+      type: Object,
+      default() {
+        return {x: 0, y: 0, z: 0};
+      }
+    }
+  },
   data() {
     return {
-      scene: null,
-      engine: null,
-      interval: null
+      cubePosition: {},
+      offset: 0,
+      x: 0,
+      y: 0,
+      z: 0
     }
   },
 
-  methods: {
-    setupFpsPoller() {
-      const interval = setInterval(() => {
-        const fps = this.engine.getFps().toFixed();
-        this.$emit("polledFps", fps);
-      }, 1000)
-      this.interval = interval;
+  watch: {
+    position(val) {
+      if (val) {
+        sceneObject.setPosition("box-green", val.x, val.y, val.z);
+      }
     }
   },
 
@@ -34,10 +42,7 @@ export default {
       this.$emit("callbackFps", fps)
     }
     if (renderCanvas) {
-      const {engine, scene} = createScene(renderCanvas, fpsCallback);
-      this.engine = engine;
-      this.scene = scene;
-      this.setupFpsPoller();
+      sceneObject.createScene(renderCanvas, fpsCallback);
     }
   },
 
