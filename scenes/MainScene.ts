@@ -6,7 +6,8 @@ import {
   MeshBuilder,
   StandardMaterial,
   Color3,
-  HemisphericLight
+  PointLight,
+  ShadowGenerator
 } from "babylonjs";
 
 const sceneObject = {
@@ -22,7 +23,9 @@ const sceneObject = {
 
     camera.attachControl(canvas, true);
 
-    new HemisphericLight("light", new Vector3(0, 0, -100), scene);
+    const light = new PointLight("light", new Vector3(0, 0, -10), scene);
+    const shadowGenerator = new ShadowGenerator(1024, light);
+
 
     const adalia = MeshBuilder.CreateSphere("adalia", {}, scene);
     const materialAdalia = new StandardMaterial("adalia-material", scene);
@@ -30,6 +33,7 @@ const sceneObject = {
     materialAdalia.specularColor = Color3.Blue();
     adalia.scaling = new Vector3(0.4, 0.4, 0.4)
     adalia.material = materialAdalia
+    shadowGenerator.getShadowMap().renderList.push(adalia);
 
     const asteroid = MeshBuilder.CreateSphere("asteroid", {}, scene);
     const materialRed = new StandardMaterial("asteriod-material", scene);
@@ -37,6 +41,7 @@ const sceneObject = {
     materialRed.specularColor = Color3.Red();
     asteroid.material = materialRed;
     asteroid.scaling = new Vector3(0.2, 0.2, 0.2)
+    shadowGenerator.getShadowMap().renderList.push(asteroid);
 
     const plane = MeshBuilder.CreatePlane("reference-plane", {size: 20}, scene);
     const materialPlane = new StandardMaterial("plane-glass", scene);
@@ -45,6 +50,7 @@ const sceneObject = {
     materialPlane.alpha = 0.2;
     plane.material = materialPlane;
     plane.position.z = 2
+    plane.receiveShadows = true
 
     engine.runRenderLoop(() => {
       scene.render();
