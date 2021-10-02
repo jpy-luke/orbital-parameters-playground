@@ -29,18 +29,9 @@ export default {
 
   mounted() {
     const renderCanvas = this.$refs['render-canvas']
-    const fpsCallback = (fps) => {
-      this.$emit("callbackFps", fps)
-    }
     if (renderCanvas) {
-      sceneObject.createScene(renderCanvas, fpsCallback);
+      sceneObject.createScene(renderCanvas);
     }
   },
-
-  unmounted() {
-    if (this.interval) {
-      clearInterval(this.interval)
-    }
-  }
 };
 </script>

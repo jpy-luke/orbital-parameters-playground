@@ -54,11 +54,6 @@ const sceneObject = {
 
     engine.runRenderLoop(() => {
       scene.render();
-
-      if (fpsCallback) {
-        fpsCallback(engine.getFps().toFixed());
-      }
-
     });
   },
   setPosition: function (name: string, x: number, y: number, z: number) {

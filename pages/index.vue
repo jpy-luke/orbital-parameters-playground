@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <label>emitted fps {{ callbackFps }}</label><br/>
     <button @click="animate">Animate</button>
     <button @click="stop">Stop</button>
     <table>
@@ -39,7 +38,7 @@
       </tr>
       </tbody>
     </table>
-    <render-canvas @callbackFps="callbackFpsReceived" :position="position"/>
+    <render-canvas :position="position"/>
   </div>
 </template>
 
@@ -56,7 +55,6 @@ export default Vue.extend({
   data() {
     return {
       interval: null,
-      callbackFps: 0,
       position: {
         x: 0,
         y: 0,
@@ -108,9 +106,6 @@ export default Vue.extend({
     },
     setDaysPerInterval(event) {
       this.daysPerInterval = Number(event.target.value)
-    },
-    callbackFpsReceived(fps) {
-      this.callbackFps = fps;
     },
     animate() {
       const interval = setInterval(() => {
