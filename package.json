@@ -13,7 +13,8 @@
     "babylonjs": "^4.2.0",
     "core-js": "^3.15.1",
     "influence-utils": "^1.0.1",
-    "nuxt": "^2.15.7"
+    "nuxt": "^2.15.7",
+    "vue": "^2.6.14"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.7",
