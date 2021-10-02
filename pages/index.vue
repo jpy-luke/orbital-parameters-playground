@@ -35,8 +35,7 @@
       </tr>
       </tbody>
     </table>
-    <render-canvas @callbackFps="callbackFpsReceived" :position="position"
-                   style="width: 100%; height: 400px;"/>
+    <render-canvas @callbackFps="callbackFpsReceived" :position="position"/>
   </div>
 </template>
 
