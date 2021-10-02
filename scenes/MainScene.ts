@@ -1,7 +1,7 @@
 import {
   Engine,
   Scene,
-  FreeCamera,
+  ArcRotateCamera,
   Vector3,
   MeshBuilder,
   StandardMaterial,
@@ -18,8 +18,8 @@ const sceneObject = {
     sceneObject.engine = engine;
     sceneObject.scene = scene;
 
-    const camera = new FreeCamera("camera1", new Vector3(0, 0, -10), scene);
-    camera.setTarget(Vector3.Zero());
+    const camera = new ArcRotateCamera("camera1", -3.14 / 2, 3.14 / 3 + 1, 20, new Vector3(0, 0, 0), scene);
+
     camera.attachControl(canvas, true);
 
     new HemisphericLight("light", new Vector3(0, 0, -100), scene);
