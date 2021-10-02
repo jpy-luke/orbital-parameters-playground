@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "babylonjs": "^4.2.0",
     "core-js": "^3.15.1",
     "nuxt": "^2.15.7"
   },
