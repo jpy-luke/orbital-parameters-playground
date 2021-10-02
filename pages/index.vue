@@ -42,19 +42,6 @@ export default Vue.extend({
     callbackFpsReceived(fps) {
       this.callbackFps = fps;
     },
-    moveCube() {
-      this.getNextPosition();
-      this.moveCubeTheRightWay()
-    },
-    moveCubeTheRightWay() {
-      this.cubePosition = {x: 2, y: this.y, z: this.z}
-    },
-    getNextPosition() {
-      this.offset += 0.5;
-      this.x = 0;
-      this.y = 0 + this.offset;
-      this.z = 0;
-    },
     animate() {
       const interval = setInterval(() => {
         this.position = this.orbit.getPositionAtTime(this.day);
