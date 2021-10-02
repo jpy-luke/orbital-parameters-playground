@@ -44,14 +44,22 @@ const sceneObject = {
     asteroid.scaling = new Vector3(0.2, 0.2, 0.2)
     shadowGenerator.getShadowMap().renderList.push(asteroid);
 
-    const plane = MeshBuilder.CreatePlane("reference-plane", {size: 20}, scene);
-    const materialPlane = new StandardMaterial("plane-glass", scene);
-    materialPlane.diffuseColor = Color3.Gray();
-    materialPlane.specularColor = Color3.Gray();
-    materialPlane.alpha = 0.2;
-    plane.material = materialPlane;
-    plane.position.z = 2
-    plane.receiveShadows = true
+    const backgroundPlane = MeshBuilder.CreatePlane("background-plane", {size: 20}, scene);
+    const materialBackgroundPlane = new StandardMaterial("plane-shaded", scene);
+    materialBackgroundPlane.diffuseColor = Color3.Gray();
+    materialBackgroundPlane.specularColor = Color3.Gray();
+    materialBackgroundPlane.alpha = 0.2;
+    backgroundPlane.material = materialBackgroundPlane;
+    backgroundPlane.position.z = 2
+    backgroundPlane.receiveShadows = true
+
+    const referencePlane = MeshBuilder.CreatePlane("reference-plane", {size: 10}, scene);
+    const materialReferencePlane = new StandardMaterial("plane-glass", scene);
+    materialReferencePlane.diffuseColor = Color3.Black();
+    materialReferencePlane.specularColor = Color3.Black();
+    materialReferencePlane.alpha = 0.1
+    referencePlane.material = materialReferencePlane;
+
 
     engine.runRenderLoop(() => {
       scene.render();
