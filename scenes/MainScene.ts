@@ -18,33 +18,32 @@ const sceneObject = {
     sceneObject.engine = engine;
     sceneObject.scene = scene;
 
-    const camera = new FreeCamera("camera1", new Vector3(0, 5, -10), scene);
+    const camera = new FreeCamera("camera1", new Vector3(0, 0, -10), scene);
     camera.setTarget(Vector3.Zero());
     camera.attachControl(canvas, true);
 
-    new HemisphericLight("light", Vector3.Up(), scene);
+    new HemisphericLight("light", new Vector3(0, 0, -100), scene);
 
-    const boxRed = MeshBuilder.CreateBox("box-red", {size: 2}, scene);
-    const materialRed = new StandardMaterial("box-material", scene);
+    const adalia = MeshBuilder.CreateSphere("adalia", scene);
+    const materialAdalia = new StandardMaterial(("adalia-material", scene));
+    materialAdalia.ambientColor = Color3.White();
+    adalia.scaling = new Vector3(0.5, 0.5, 0.5)
+
+    const asteroid = MeshBuilder.CreateSphere("asteroid", scene);
+    const materialRed = new StandardMaterial("asteriod-material", scene);
     materialRed.diffuseColor = Color3.Red();
-    boxRed.material = materialRed;
-    boxRed.position.x = -2;
+    asteroid.material = materialRed;
+    asteroid.scaling = new Vector3(0.1, 0.1, 0.1)
 
-    const boxBlue = MeshBuilder.CreateBox("box-yellow", {size: 1}, scene);
-    const materialBlue = new StandardMaterial("box-blue-material", scene);
-    materialBlue.diffuseColor = Color3.Blue();
-    boxBlue.material = materialBlue;
-
-    const boxGreen = MeshBuilder.CreateBox("box-green", {size: 1}, scene);
-    const materialGreen = new StandardMaterial("box-Green-material", scene);
-    materialGreen.diffuseColor = Color3.Green();
-    boxGreen.material = materialGreen;
-    boxGreen.position.x = 2;
+    const plane = MeshBuilder.CreatePlane("reference-plane", {size: 20}, scene);
+    const planeMaterial = new StandardMaterial("plane-glass", scene);
+    planeMaterial.diffuseColor = Color3.Gray();
+    planeMaterial.alpha = 0.2;
+    plane.material = planeMaterial;
 
     engine.runRenderLoop(() => {
       scene.render();
 
-      boxGreen.rotation.y += 0.01;
       if (fpsCallback) {
         fpsCallback(engine.getFps().toFixed());
       }
@@ -58,6 +57,5 @@ const sceneObject = {
     }
   }
 }
-
 
 export default sceneObject;

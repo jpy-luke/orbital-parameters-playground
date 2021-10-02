@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <label>emitted fps {{ callbackFps }}</label><br/>
-    <button @click="moveCube">Move Cube</button>
-    <render-canvas @callbackFps="callbackFpsReceived" :position="cubePosition"
+    <button @click="animate">Animate</button>
+    <button @click="stop">Stop</button>
+    <render-canvas @callbackFps="callbackFpsReceived" :position="position"
                    style="width: 100%; height: 600px;"/>
   </div>
 </template>
@@ -10,6 +11,7 @@
 <script>
 import Vue from 'vue'
 import RenderCanvas from '../components/RenderCanvas.vue';
+import utils from 'influence-utils'
 
 export default Vue.extend({
   name: 'app',
@@ -18,12 +20,22 @@ export default Vue.extend({
   },
   data() {
     return {
+      interval: null,
       callbackFps: 0,
-      cubePosition: {},
-      offset: 0,
-      x: 0,
-      y: 0,
-      z: 0
+      position: {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+      day: 0,
+      orbit: new utils.KeplerianOrbit({
+        a: 2.447,
+        e: 0.269,
+        i: 0.04974188368183839,
+        o: 2.1395991300198487,
+        w: 3.312111321509639,
+        m: 0.9262462340333908
+      })
     };
   },
   methods: {
@@ -42,7 +54,23 @@ export default Vue.extend({
       this.x = 0;
       this.y = 0 + this.offset;
       this.z = 0;
+    },
+    animate() {
+      const interval = setInterval(() => {
+        this.position = this.orbit.getPositionAtTime(this.day);
+        this.day += 25
+      }, 40)
+      this.interval = interval;
+    },
+    stop() {
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
     }
+
+  },
+  mounted() {
+
   }
 });
 </script>
@@ -60,5 +88,10 @@ body {
   width: 100vw;
   padding: 20px;
   box-sizing: border-box;
+}
+
+button {
+  border-color: black;
+  border-width: 2px 2px 2px 2px;
 }
 </style>

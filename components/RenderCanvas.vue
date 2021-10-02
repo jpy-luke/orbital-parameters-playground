@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas ref="render-canvas" width="500" height="500"/>
+    <canvas ref="render-canvas" width="1000" height="800"/>
   </div>
 </template>
 
@@ -18,20 +18,11 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      cubePosition: {},
-      offset: 0,
-      x: 0,
-      y: 0,
-      z: 0
-    }
-  },
 
   watch: {
     position(val) {
       if (val) {
-        sceneObject.setPosition("box-green", val.x, val.y, val.z);
+        sceneObject.setPosition("asteroid", val.x, val.y, val.z);
       }
     }
   },
