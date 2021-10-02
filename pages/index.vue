@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <render-canvas style="width: 100%; height: 600px;" />
+    <label>{{ fps }}</label>
+    <render-canvas @fps="fpsReceived" style="width: 100%; height: 600px;"/>
   </div>
 </template>
 
@@ -12,6 +13,16 @@ export default Vue.extend({
   name: 'app',
   components: {
     RenderCanvas
+  },
+  data() {
+    return {
+      fps: 0
+    };
+  },
+  methods: {
+    fpsReceived(fps) {
+      this.fps = fps;
+    }
   }
 });
 </script>
