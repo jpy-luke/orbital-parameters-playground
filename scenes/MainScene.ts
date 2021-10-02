@@ -71,7 +71,7 @@ const sceneObject = {
       mesh.position = new Vector3(x, y, z);
     }
   },
-  setOrbitalPath: function (points: []) {
+  setOrbitalPath: function (points: [Vector3]) {
     const vectors = points.map(point => new Vector3(point.x, point.y, point.z));
     if (sceneObject.line) {
       sceneObject.line.dispose();
