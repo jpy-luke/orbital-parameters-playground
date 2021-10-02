@@ -77,6 +77,8 @@ export default Vue.extend({
   methods: {
     setSemimajorAxis(event) {
       this.orbitalElements.a = Number(event.target.value)
+      this.refreshAsteroidPosition();
+      this.refreshOrbitalPath();
     },
     setEccentricity(event) {
       this.orbitalElements.e = Number(event.target.value)
