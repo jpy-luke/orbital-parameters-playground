@@ -9,6 +9,7 @@
         <th>Semi-major axis</th>
         <th>Eccentricity</th>
         <th>Inclination (rad)</th>
+        <th>Simulation interval (ms)</th>
       </tr>
       </thead>
       <tbody>
@@ -16,6 +17,7 @@
         <td><input @change="setSemimajorAxis" :placeholder="orbitalElements.a" type="number" step="0.1"></td>
         <td><input @change="setEccentricity" :placeholder="orbitalElements.e" type="number" step="0.1"></td>
         <td><input @change="setInclination" :placeholder="orbitalElements.i" type="number" step="0.1"></td>
+        <td><input @change="setSimulationInterval" :placeholder="simulationInterval" type="number" step="10"></td>
       </tr>
       </tbody>
     </table>
@@ -25,6 +27,7 @@
         <th>Ascending node (rad)</th>
         <th>Argument of periapsis (rad)</th>
         <th>Mean anomaly at epoch (rad)</th>
+        <th>Simulation days per interval</th>
       </tr>
       </thead>
       <tbody>
@@ -32,6 +35,7 @@
         <td><input @change="setLongitudeOfAscendingNode" :placeholder="orbitalElements.o" type="number" step="0.1"></td>
         <td><input @change="setArgumentOfPeriapsis" :placeholder="orbitalElements.w" type="number" step="0.1"></td>
         <td><input @change="setMeanAnomalyAtEpoch" :placeholder="orbitalElements.m" type="number" step="0.1"></td>
+        <td><input @change="setDaysPerInterval" :placeholder="daysPerInterval" type="number" step="10"></td>
       </tr>
       </tbody>
     </table>
@@ -59,6 +63,8 @@ export default Vue.extend({
         z: 0,
       },
       day: 0,
+      simulationInterval: 40,
+      daysPerInterval: 25,
       orbitalElements: {
         a: 2.447,
         e: 0.269,
@@ -93,14 +99,24 @@ export default Vue.extend({
       this.orbitalElements.m = Number(event.target.value)
       this.refresh();
     },
+    setSimulationInterval(event) {
+      this.simulationInterval = Number(event.target.value)
+      if(this.interval) {
+        this.stop();
+        this.animate();
+      }
+    },
+    setDaysPerInterval(event) {
+      this.daysPerInterval = Number(event.target.value)
+    },
     callbackFpsReceived(fps) {
       this.callbackFps = fps;
     },
     animate() {
       const interval = setInterval(() => {
         this.refresh();
-        this.day += 25
-      }, 40)
+        this.day += this.daysPerInterval;
+      }, this.simulationInterval)
       this.interval = interval;
     },
     stop() {
