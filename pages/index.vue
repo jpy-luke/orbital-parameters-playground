@@ -38,7 +38,7 @@
       </tr>
       </tbody>
     </table>
-    <render-canvas :position="position"/>
+    <render-canvas :position="position" :path="orbitalPath"/>
   </div>
 </template>
 
@@ -70,7 +70,8 @@ export default Vue.extend({
         o: 2.1395991300198487,
         w: 3.312111321509639,
         m: 0.9262462340333908
-      }
+      },
+      orbitalPath: []
     };
   },
   methods: {
@@ -79,27 +80,32 @@ export default Vue.extend({
     },
     setEccentricity(event) {
       this.orbitalElements.e = Number(event.target.value)
-      this.refresh();
+      this.refreshAsteroidPosition();
+      this.refreshOrbitalPath();
     },
     setInclination(event) {
       this.orbitalElements.i = Number(event.target.value)
-      this.refresh();
+      this.refreshAsteroidPosition();
+      this.refreshOrbitalPath();
     },
     setLongitudeOfAscendingNode(event) {
       this.orbitalElements.o = Number(event.target.value)
-      this.refresh();
+      this.refreshAsteroidPosition();
+      this.refreshOrbitalPath();
     },
     setArgumentOfPeriapsis(event) {
       this.orbitalElements.w = Number(event.target.value)
-      this.refresh();
+      this.refreshAsteroidPosition();
+      this.refreshOrbitalPath();
     },
     setMeanAnomalyAtEpoch(event) {
       this.orbitalElements.m = Number(event.target.value)
-      this.refresh();
+      this.refreshAsteroidPosition();
+      this.refreshOrbitalPath();
     },
     setSimulationInterval(event) {
       this.simulationInterval = Number(event.target.value)
-      if(this.interval) {
+      if (this.interval) {
         this.stop();
         this.animate();
       }
@@ -109,9 +115,9 @@ export default Vue.extend({
     },
     animate() {
       const interval = setInterval(() => {
-        this.refresh();
+        this.refreshAsteroidPosition();
         this.day += this.daysPerInterval;
-      }, this.simulationInterval)
+      }, this.simulationInterval);
       this.interval = interval;
     },
     stop() {
@@ -119,14 +125,20 @@ export default Vue.extend({
         clearInterval(this.interval)
       }
     },
-    refresh() {
-      const orbit = new utils.KeplerianOrbit(this.orbitalElements)
-      this.position = orbit.getPositionAtTime(this.day)
+    refreshAsteroidPosition() {
+      const orbit = new utils.KeplerianOrbit(this.orbitalElements);
+      this.position = orbit.getPositionAtTime(this.day);
+    },
+    refreshOrbitalPath() {
+      const orbit = new utils.KeplerianOrbit(this.orbitalElements);
+      const positions = orbit.getSmoothOrbit(100);
+      this.orbitalPath = positions;
     }
 
   },
   mounted() {
-    this.refresh();
+    this.refreshAsteroidPosition();
+    this.refreshOrbitalPath();
   }
 });
 </script>

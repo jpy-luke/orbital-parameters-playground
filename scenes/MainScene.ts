@@ -13,6 +13,7 @@ import {
 const sceneObject = {
   engine: null,
   scene: null,
+  line: null,
   createScene: (canvas: HTMLCanvasElement, fpsCallback: Function) => {
     const engine = new Engine(canvas);
     const scene = new Scene(engine);
@@ -61,6 +62,14 @@ const sceneObject = {
     if (mesh) {
       mesh.position = new Vector3(x, y, z);
     }
+  },
+  setOrbitalPath: function (points: []) {
+    const vectors = points.map(point => new Vector3(point.x, point.y, point.z));
+    if (sceneObject.line) {
+      sceneObject.line.dispose();
+    }
+    const line = MeshBuilder.CreateDashedLines("orbital-path", {points: vectors}, sceneObject.scene);
+    sceneObject.line = line;
   }
 }
 

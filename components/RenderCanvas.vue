@@ -16,6 +16,12 @@ export default {
       default() {
         return {x: 0, y: 0, z: 0};
       }
+    },
+    path: {
+      type: Array,
+      default() {
+        return []
+      }
     }
   },
 
@@ -24,6 +30,9 @@ export default {
       if (val) {
         sceneObject.setPosition("asteroid", val.x, val.y, val.z);
       }
+    },
+    path(val) {
+      sceneObject.setOrbitalPath(val);
     }
   },
 
