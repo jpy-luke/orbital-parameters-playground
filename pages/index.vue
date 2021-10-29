@@ -38,6 +38,8 @@
       </tr>
       </tbody>
     </table>
+    <p>Use inputs above to experiment with orbital parameters. You can adjust them on the go even when Animate is active.</p>
+    <p>Click and drag with mouse to move camera. Use wheel to zoom in. This probably won't work very well on mobile browser.</p>
     <render-canvas :position="position" :path="orbitalPath"/>
   </div>
 </template>
