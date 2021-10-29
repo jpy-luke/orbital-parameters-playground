@@ -66,12 +66,12 @@ export default Vue.extend({
       simulationInterval: 40,
       daysPerInterval: 25,
       orbitalElements: {
-        a: 2.447,
-        e: 0.269,
-        i: 0.14974188368183839,
-        o: 2.1395991300198487,
-        w: 3.312111321509639,
-        m: 0.9262462340333908
+        a: 2.4,
+        e: 0.2,
+        i: 0.4,
+        o: 2.1,
+        w: 3.3,
+        m: 0.9
       },
       orbitalPath: []
     };
