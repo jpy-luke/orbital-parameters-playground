@@ -78,12 +78,23 @@ export default Vue.extend({
   },
   methods: {
     setSemimajorAxis(event) {
-      this.orbitalElements.a = Number(event.target.value)
+      let value = Number(event.target.value)
+      if(value < 0.1) {
+        value = 0.1;
+      }
+      this.orbitalElements.a = value;
       this.refreshAsteroidPosition();
       this.refreshOrbitalPath();
     },
     setEccentricity(event) {
-      this.orbitalElements.e = Number(event.target.value)
+      let value = Number(event.target.value)
+      if(value > 0.99) {
+        value = 0.99;
+      }
+      if(value < -0.99) {
+        value = -0.99;
+      }
+      this.orbitalElements.e = value
       this.refreshAsteroidPosition();
       this.refreshOrbitalPath();
     },
@@ -129,6 +140,7 @@ export default Vue.extend({
     stop() {
       if (this.interval) {
         clearInterval(this.interval)
+        this.interval = null
       }
     },
     refreshAsteroidPosition() {
