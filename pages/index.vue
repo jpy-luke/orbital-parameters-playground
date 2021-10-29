@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <button @click="animate">Animate</button>
-    <button @click="stop">Stop</button>
+    <p>You can use this application to experiment how Keplerian orbit parameters affect orbit of the Red planet circling the Blue sun.</p>
+    <p>Use inputs below to experiment with orbital parameters. You can adjust them with mouse wheel or keyboard input.</p>
+    <p>Click and drag the view screen with mouse to move the camera. Use wheel to zoom in. This probably won't work very well on mobile browser.</p>
+    <p>Click the Animate button to start or stop the simulation.</p>
+    <hr>
     <table>
       <thead>
       <tr>
@@ -38,8 +41,8 @@
       </tr>
       </tbody>
     </table>
-    <p>Use inputs above to experiment with orbital parameters. You can adjust them on the go even when Animate is active.</p>
-    <p>Click and drag with mouse to move camera. Use wheel to zoom in. This probably won't work very well on mobile browser.</p>
+    <hr>
+    <button @click="toggleAnimate" v-bind:style="{'background-color': buttonColor}">Animate</button>
     <render-canvas :position="position" :path="orbitalPath"/>
   </div>
 </template>
@@ -73,7 +76,8 @@ export default Vue.extend({
         w: 3.3,
         m: 0.9
       },
-      orbitalPath: []
+      orbitalPath: [],
+      buttonColor: "#0f0"
     };
   },
   methods: {
@@ -128,19 +132,19 @@ export default Vue.extend({
     setDaysPerInterval(event) {
       this.daysPerInterval = Number(event.target.value)
     },
-    animate() {
-      if(!this.interval) {
+    toggleAnimate() {
+      if (!!this.interval) {
+        clearInterval(this.interval)
+        this.interval = null
+        this.buttonColor = "#0f0"
+      }
+      else if (!this.interval) {
         const interval = setInterval(() => {
           this.refreshAsteroidPosition();
           this.day += this.daysPerInterval;
         }, this.simulationInterval);
         this.interval = interval;
-      }
-    },
-    stop() {
-      if (this.interval) {
-        clearInterval(this.interval)
-        this.interval = null
+        this.buttonColor = "#f00"
       }
     },
     refreshAsteroidPosition() {
@@ -179,5 +183,9 @@ body {
 button {
   border-color: black;
   border-width: 2px 2px 2px 2px;
+}
+
+canvas {
+  width: 60%;
 }
 </style>

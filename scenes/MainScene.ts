@@ -24,7 +24,7 @@ const sceneObject = {
     sceneObject.engine = engine;
     sceneObject.scene = scene;
 
-    const camera = new ArcRotateCamera("camera1", -3.14 / 2, 3.14 / 3 + 1, 20, new Vector3(0, 0, 0), scene);
+    const camera = new ArcRotateCamera("camera1", -3.14 / 2, 3.14 / 3 + 2, 10, new Vector3(0, 0, 0), scene);
     camera.wheelPrecision = 5
     camera.attachControl(canvas, true);
 
