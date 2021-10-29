@@ -6,14 +6,18 @@ import {
   MeshBuilder,
   StandardMaterial,
   Color3,
+  Color4,
   PointLight,
   ShadowGenerator
 } from "babylonjs";
+import {Point3d} from "~/types";
 
 const sceneObject = {
   engine: null,
   scene: null,
-  line: null,
+  orbitalPath: null,
+  planeProjectedPath: null,
+  planeProjectionLine: null,
   createScene: (canvas: HTMLCanvasElement, fpsCallback: Function) => {
     const engine = new Engine(canvas);
     const scene = new Scene(engine);
@@ -67,17 +71,35 @@ const sceneObject = {
   },
   setPosition: function (name: string, x: number, y: number, z: number) {
     const mesh = sceneObject.scene.getMeshByName(name);
+    const planeProjectionVectors = [
+      new Vector3(x, y, z),
+      new Vector3(x, y, 0)
+    ]
+    if (sceneObject.planeProjectionLine) {
+      sceneObject.planeProjectionLine.dispose();
+    }
+    sceneObject.planeProjectionLine = MeshBuilder.CreateLines('position-projection-line', {
+      points: planeProjectionVectors,
+      colors: [
+        new Color4(1.0, 0.0, 0.0, 1.0),
+        new Color4(1.0, 0.0, 0.0, 1.0)
+      ]
+    }, sceneObject.scene)
     if (mesh) {
       mesh.position = new Vector3(x, y, z);
     }
   },
-  setOrbitalPath: function (points: [Vector3]) {
-    const vectors = points.map(point => new Vector3(point.x, point.y, point.z));
-    if (sceneObject.line) {
-      sceneObject.line.dispose();
+  setOrbitalPath: function (points: [Point3d]) {
+    const pathVectors = points.map(point => new Vector3(point.x, point.y, point.z));
+    const projectedVectors = points.map(point => new Vector3(point.x, point.y, 0));
+    if (sceneObject.orbitalPath) {
+      sceneObject.orbitalPath.dispose();
     }
-    const line = MeshBuilder.CreateDashedLines("orbital-path", {points: vectors}, sceneObject.scene);
-    sceneObject.line = line;
+    if (sceneObject.planeProjectedPath) {
+      sceneObject.planeProjectedPath.dispose();
+    }
+    sceneObject.orbitalPath = MeshBuilder.CreateLines("orbital-path", {points: pathVectors}, sceneObject.scene);
+    sceneObject.planeProjectedPath = MeshBuilder.CreateDashedLines("projected-path", {points: projectedVectors}, sceneObject.scene);
   }
 }
 
