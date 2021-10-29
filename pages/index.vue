@@ -13,10 +13,10 @@
       </thead>
       <tbody>
       <tr>
-        <td><input @change="setSemimajorAxis" :placeholder="orbitalElements.a" type="number" step="0.1"></td>
-        <td><input @change="setEccentricity" :placeholder="orbitalElements.e" type="number" step="0.1"></td>
-        <td><input @change="setInclination" :placeholder="orbitalElements.i" type="number" step="0.1"></td>
-        <td><input @change="setSimulationInterval" :placeholder="simulationInterval" type="number" step="10"></td>
+        <td><input @change="setSemimajorAxis" :value="orbitalElements.a" type="number" step="0.1"></td>
+        <td><input @change="setEccentricity" :value="orbitalElements.e" type="number" step="0.1"></td>
+        <td><input @change="setInclination" :value="orbitalElements.i" type="number" step="0.1"></td>
+        <td><input @change="setSimulationInterval" :value="simulationInterval" type="number" step="10"></td>
       </tr>
       </tbody>
     </table>
@@ -31,10 +31,10 @@
       </thead>
       <tbody>
       <tr>
-        <td><input @change="setLongitudeOfAscendingNode" :placeholder="orbitalElements.o" type="number" step="0.1"></td>
-        <td><input @change="setArgumentOfPeriapsis" :placeholder="orbitalElements.w" type="number" step="0.1"></td>
-        <td><input @change="setMeanAnomalyAtEpoch" :placeholder="orbitalElements.m" type="number" step="0.1"></td>
-        <td><input @change="setDaysPerInterval" :placeholder="daysPerInterval" type="number" step="10"></td>
+        <td><input @change="setLongitudeOfAscendingNode" :value="orbitalElements.o" type="number" step="0.1"></td>
+        <td><input @change="setArgumentOfPeriapsis" :value="orbitalElements.w" type="number" step="0.1"></td>
+        <td><input @change="setMeanAnomalyAtEpoch" :value="orbitalElements.m" type="number" step="0.1"></td>
+        <td><input @change="setDaysPerInterval" :value="daysPerInterval" type="number" step="10"></td>
       </tr>
       </tbody>
     </table>
