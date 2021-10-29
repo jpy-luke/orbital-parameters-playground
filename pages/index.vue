@@ -116,11 +116,13 @@ export default Vue.extend({
       this.daysPerInterval = Number(event.target.value)
     },
     animate() {
-      const interval = setInterval(() => {
-        this.refreshAsteroidPosition();
-        this.day += this.daysPerInterval;
-      }, this.simulationInterval);
-      this.interval = interval;
+      if(!this.interval) {
+        const interval = setInterval(() => {
+          this.refreshAsteroidPosition();
+          this.day += this.daysPerInterval;
+        }, this.simulationInterval);
+        this.interval = interval;
+      }
     },
     stop() {
       if (this.interval) {
