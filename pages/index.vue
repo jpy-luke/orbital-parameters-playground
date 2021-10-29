@@ -125,8 +125,8 @@ export default Vue.extend({
     setSimulationInterval(event) {
       this.simulationInterval = Number(event.target.value)
       if (this.interval) {
-        this.stop();
-        this.animate();
+        this.stopAnimation();
+        this.startAnimation();
       }
     },
     setDaysPerInterval(event) {
@@ -134,18 +134,24 @@ export default Vue.extend({
     },
     toggleAnimate() {
       if (!!this.interval) {
-        clearInterval(this.interval)
-        this.interval = null
-        this.buttonColor = "#0f0"
+        this.stopAnimation();
       }
       else if (!this.interval) {
-        const interval = setInterval(() => {
-          this.refreshAsteroidPosition();
-          this.day += this.daysPerInterval;
-        }, this.simulationInterval);
-        this.interval = interval;
-        this.buttonColor = "#f00"
+        this.startAnimation();
       }
+    },
+    stopAnimation() {
+      clearInterval(this.interval)
+      this.interval = null
+      this.buttonColor = "#0f0"
+    },
+    startAnimation() {
+      const interval = setInterval(() => {
+        this.refreshAsteroidPosition();
+        this.day += this.daysPerInterval;
+      }, this.simulationInterval);
+      this.interval = interval;
+      this.buttonColor = "#f00"
     },
     refreshAsteroidPosition() {
       const orbit = new utils.KeplerianOrbit(this.orbitalElements);
